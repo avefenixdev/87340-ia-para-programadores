@@ -61,3 +61,9 @@ Estás herramientas tienen 2 modos de funcionamiento
 <https://chromewebstore.google.com/detail/youtube-transcript-summar/eelolnalmpdjemddgmpnmobdhnglfpje?hl=en&utm_source=ext_sidebar>
 
 <https://videotranscriber.ai/>
+
+# Model Context Protocol (MCP)
+
+Model Context Protocol (MCP) es un estándar abierto diseñado para conectar herramientas, datos y servicios con modelos de inteligencia artificial de manera segura, consistente y extensible. MCP permite que los LLM interactúen con tu entorno (archivos, APIs, bases de datos, sistemas internos) mediante servidores llamados **MCP Servers**.
+
+![protocolo-mcp](_ref/rest-api-vs-mcp.png)
