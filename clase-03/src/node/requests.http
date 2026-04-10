@@ -1,0 +1,26 @@
+### Variables
+@baseUrl = http://localhost:3000
+
+### API Info
+GET {{baseUrl}}/
+
+### Get Weather - Madrid
+GET {{baseUrl}}/api/clima/madrid
+
+### Get Weather - Barcelona
+GET {{baseUrl}}/api/clima/barcelona
+
+### Get Weather - Buenos Aires
+GET {{baseUrl}}/api/clima/buenos-aires
+
+### Get Weather - Mexico City
+GET {{baseUrl}}/api/clima/mexico-city
+
+### Get All Cities
+GET {{baseUrl}}/api/ciudades
+
+### Greet with Name
+GET {{baseUrl}}/api/saludo?nombre=Juan
+
+### Greet without Name
+GET {{baseUrl}}/api/saludo
