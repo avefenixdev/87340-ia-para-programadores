@@ -102,7 +102,7 @@ Ejemplo sencillo de utilización del MCP de GitHub
 
 5. Colocar en el input -> 'https://api.githubcopilot.com/mcp/'
 
-6. Coloca un identificador
+6. Coloca un identificador en el input
 
 7. Global
 
@@ -110,3 +110,134 @@ Ejemplo sencillo de utilización del MCP de GitHub
 
 9. Ponen en modo agente
 
+## Text to Speech (Texto a Voz)
+
+## Texto pasar a Postcast
+
+> <https://elevenlabs.io/>
+
+### NaturalReaders
+
+> <https://www.naturalreaders.com/>
+
+* Les hace un OnBoarding....
+* Es una muy buena opcion para soluciones rapida
+* La capa gratuita es muy generosa.
+* Puntuacion : 8/10
+  * Las voces son mejorables pero para ser una herramietna con un margen gratuito amplio viene bastante bien 
+
+> <https://ttsreader.com/es/>
+
+# GROQ: Es una empresa de hardware (Diseñar sistemas para la ejecución de LLM)
+Diseñan aceleradoras para inferencia de IA (LPU: Language Processing Unit)
+
+Nos provee Modelos Open Source incluso nos da una Api Key
+
+* LLaMA
+* Mixtral
+* Gemma
+* Whisper
+
+# Prueba de la API KEY de GROQ
+
+1. Entrar al Colab <https://colab.research.google.com/>
+2. Configurar el entorno (Entorno de ejecución > Cambiar... >) Tildar -> GPU T4
+3. Instalar groq 
+
+```sh
+pip install groq
+```
+
+4. Importar
+
+```py
+from groq import Groq
+```
+4. Ejecutar el código
+
+```py
+from groq import Groq
+api_key = input("Ingrese su Api Key")
+prompt = input("Ingrese su prompt")
+
+client = Groq(api_key=api_key)
+
+chat_completion = client.chat.completions.create(
+    messages=[
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ],
+    model="moonshotai/kimi-k2-instruct",
+    stream=False,
+)
+
+print(chat_completion.choices[0].message.content)
+```
+
+## Creamos un aplicación con interfaz gráfica
+
+1. Instalamos gradio
+
+```sh
+pip install gradio
+```
+
+2. Ejecutamos el código
+
+```py
+import gradio as gr
+from groq import Groq
+
+# Variable global para almacenar la API key del usuario
+client = None
+
+def set_api_key(api_key):
+    global client
+    try:
+        client = Groq(api_key=api_key)
+        return "✅ API Key configurada correctamente"
+    except Exception as e:
+        return f"❌ Error al configurar la API Key: {e}"
+
+def chatbot_interface(message, history):
+    if not client:
+        return "⚠️ Primero debes ingresar tu API Key arriba.", history
+
+    try:
+        # Construye el historial en el formato requerido por la API
+        messages = [{"role": "user" if i % 2 == 0 else "assistant", "content": m} for i, (m, _) in enumerate(history)]
+        messages.append({"role": "user", "content": message})
+
+        response = client.chat.completions.create(
+            messages=messages,
+            model="groq/compound",
+            stream=False,
+        )
+        reply = response.choices[0].message.content
+        history.append((message, reply))
+        return "", history
+    except Exception as e:
+        return f"❌ Error al conectar con Groq: {e}", history
+
+
+# UI de Gradio
+with gr.Blocks(title="Groq Chatbot") as demo:
+    gr.Markdown("## 🤖 Chatbot con Groq API (Modelo Kimi K2)")
+
+    with gr.Row():
+        api_input = gr.Textbox(label="🔑 Ingresá tu API Key", type="password")
+        set_key_btn = gr.Button("Guardar API Key")
+        status_output = gr.Textbox(label="Estado", interactive=False)
+
+    set_key_btn.click(fn=set_api_key, inputs=api_input, outputs=status_output)
+
+    chatbot = gr.Chatbot(label="Chat estilo ChatGPT")
+    msg = gr.Textbox(label="Escribí tu mensaje")
+    send_btn = gr.Button("Enviar")
+
+    send_btn.click(fn=chatbot_interface, inputs=[msg, chatbot], outputs=[msg, chatbot])
+
+demo.launch()
+```
