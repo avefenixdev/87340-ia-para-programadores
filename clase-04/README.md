@@ -94,6 +94,19 @@ Ejemplo sencillo de utilización del MCP de GitHub
 
 1. Instalar la extensión de Copilot (GitHub.copilot-chat)
 
-1. Abrir la paleta de comandos (Ctrl + Shift + P) - [Show All Commands]
+2. Abrir la paleta de comandos (Ctrl + Shift + P) - [Show All Commands]
 
-2. Escribir **MCP: Add Server**
+3. Escribir **MCP: Add Server**
+
+4. Elegir (HTTP o Server...) 
+
+5. Colocar en el input -> 'https://api.githubcopilot.com/mcp/'
+
+6. Coloca un identificador
+
+7. Global
+
+8. Abren el chat de copilot
+
+9. Ponen en modo agente
+
