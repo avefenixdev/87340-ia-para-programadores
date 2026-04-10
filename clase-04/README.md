@@ -67,3 +67,33 @@ Estás herramientas tienen 2 modos de funcionamiento
 Model Context Protocol (MCP) es un estándar abierto diseñado para conectar herramientas, datos y servicios con modelos de inteligencia artificial de manera segura, consistente y extensible. MCP permite que los LLM interactúen con tu entorno (archivos, APIs, bases de datos, sistemas internos) mediante servidores llamados **MCP Servers**.
 
 ![protocolo-mcp](_ref/rest-api-vs-mcp.png)
+
+## ¿Por qué usar MCP?
+
+* **Integración estandarizada**: Conecta herramientas y servicios de forma consistente.
+* **Mayor productividad**: Permite que el modelo acceda directamente al contexto necesario para ayudarte.
+* **Extensible**: Podés crear tus propios MCP servers o usar los existentes (filesystem, PostgreSQL, web browsing, etc.).
+* **Seguro**: Sin exponer más permisos de los necesarios.
+
+## ¿Qué es un MCP Server?
+
+Un **MCP Server** es una herramienta que expone capacidades (read, write, list, query, etc.) a través del protocolo.
+Los entornos compatibles (como GitHub Copilot Chat o Cursor) pueden conectarse automáticamente a los MCP Servers habilitados en tu espacio de trabajo.
+
+Ejemplos populares:
+
+* **Filesystem MCP Server** → permite al modelo navegar y manipular archivos.
+* **Git MCP Server**
+* **OpenAPI MCP Server**
+* **PostgreSQL MCP Server**
+
+### Trabajando con el MCP de GITHUB
+Ejemplo sencillo de utilización del MCP de GitHub
+
+<https://docs.github.com/en/copilot/how-tos/provide-context/use-mcp-in-your-ide/use-the-github-mcp-server>
+
+1. Instalar la extensión de Copilot (GitHub.copilot-chat)
+
+1. Abrir la paleta de comandos (Ctrl + Shift + P) - [Show All Commands]
+
+2. Escribir **MCP: Add Server**
